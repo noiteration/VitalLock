@@ -76,7 +76,7 @@ class VLKeyController extends Controller
         $existingKey = VLKey::where('user_id', $userId)->first();
 
         if ($existingKey) {
-            return view('users.user_keys', ['keysExist' => true]);
+            return view('/dashboard', ['keysExist' => true]);
         }
 
         $apiUrl = env('API_URL', 'http://localhost:3001');
@@ -103,7 +103,7 @@ class VLKeyController extends Controller
                 $vlKey->health_care_key = $healthCareKey;
                 $vlKey->save();
 
-                return view('users.user_keys', [
+                return view('dashboard', [
                     'idKey' => $idKey,
                     'secretKey' => $secretKey,
                     'emergencyContactKey' => $emergencyContactKey,

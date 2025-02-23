@@ -16,16 +16,12 @@
             </header>
 
             <div class="page-heading">
-                <h3>All Patient Details</h3>
+                <h3>Add Patient Comment</h3>
             </div>
             <div class="page-content">
                 <div class="container">
                     <div class="content-wrapper">
-                        @foreach ($decryptedData as $decryptedDatum)
-                            <div class="card p-4">
-                                {{ $decryptedDatum["data"]}}
-                            </div>
-                        @endforeach
+                        <div class="alert alert-success">Success. The patient comment has been added to the blockchain</div>
                     </div>
                 </div>
             </div>

@@ -16,16 +16,22 @@
             </header>
 
             <div class="page-heading">
-                <h3>All Patient Details</h3>
+                <h3>Check Patient Record</h3>
             </div>
             <div class="page-content">
                 <div class="container">
                     <div class="content-wrapper">
-                        @foreach ($decryptedData as $decryptedDatum)
-                            <div class="card p-4">
-                                {{ $decryptedDatum["data"]}}
+
+                        <form method="POST" action="{{ route('healthdata.show') }}">
+                            @csrf
+                            <div>
+                                <label for="UserKey">User Key:</label>
+                                <input type="text" id="UserKey" name="UserKey" value="{{ old('UserKey') }}">
                             </div>
-                        @endforeach
+                            <br />
+                            <button class="btn btn-primary" type="submit">Submit</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
