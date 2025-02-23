@@ -29,7 +29,7 @@ class Blockchain {
   }
 
   createGenesisBlock() {
-    return new Block(0, "2025-02-23", "Genesis block", "0");
+    return new Block(0, "2025-02-23", { user_id: 0, data: "Genesis block" }, "0");
   }
 
   getLatestBlock() {
@@ -71,6 +71,10 @@ class Blockchain {
     }
     return true;
   }
+
+  getUserData(userId) {
+    return this.chain.filter(block => block.data.user_id === userId).map(block => block.data);
+  }
 }
 
 const app = express();
@@ -83,9 +87,21 @@ app.get('/blockchain', (req, res) => {
 });
 
 app.post('/add-block', (req, res) => {
-  const { data } = req.body;
-  const newBlock = blockchain.addBlock(data);
+  const { user_id, data } = req.body;
+  if (!user_id || !data) {
+    return res.status(400).json({ error: 'user_id and data are required' });
+  }
+  const newBlock = blockchain.addBlock({ user_id, data });
   res.json({ message: "Block added successfully", block: newBlock });
+});
+
+app.post('/get-user-data', (req, res) => {
+  const { user_id } = req.body;
+  if (!user_id) {
+    return res.status(400).json({ error: 'user_id is required' });
+  }
+  const userData = blockchain.getUserData(user_id);
+  res.json(userData);
 });
 
 const PORT = 3002;
