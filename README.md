@@ -8,6 +8,21 @@ Any 2 of the keys can be used to access the encrypted data meaning you can alway
 
 Zero-Knowledge Proofs have been set up as well which can be applied in many different cases like showing your health eligibility, your vision eligibility (demonstrated in the MTO section) etcetera.ML-KEM-768 is said to be quantum proof encryption. The program has been set to use the lattice based encryption for the best encryption of the data. RSA has been used for key generation as of now with all the mechanisms in place to handle the QPE.
 
+# Working of the application
+When a lattice based key is generated or even the standard RSA, the keys can converted to hexadecimal numbers for easier handling of them and that is exactly what we have done. The private key is then split into 4 pieces in such a way that any two of them are required to unlock the private key and by extension, your health data; which has been encrypted by using the corresponding public key.
+
+## Encryption
+We mainly go through 2 layers of encryption as in a layer of encryption by the keys themeselves and the keys being split by using Shamir's secret sharing into 4 pieces. 
+
+## Implementation
+You as a user, will have in possession 3 keys, one of which you are supposed to send it to an emergency contact. So, you will have 2 keys at your disposal which you can use to view your health data. You are supposed to keep the secret key very secret and not use it other than when you are viewing your data. You will be using the User Key as an ID but we urge to keep it private.
+
+## JUST DATA
+This way, all your data will be just that, `JUST DATA`. No information is acquired at aven if a data breach does happen. The main vulnerability we found for this is a MITM attack, but that is when bad actors REALLY REALLY want your data.
+
+## Zero-Knowledge Proofs
+The MTO can request for your details and we are not sending any data. While we plan to use `OpenFHE`, as of now, a zero knowledge proof (ZKP) is made using the data. No personal information is given out to the MTO but the very information regarding the vision test.
+
 # Running in development mode
 - Ensure NodeJS is installed and is properly working in your system.
 
