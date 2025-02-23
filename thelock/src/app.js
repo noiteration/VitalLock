@@ -7,6 +7,8 @@ const generateKeys = require('./api/generateKeys')
 const decryptKeys = require('./api/decryptKeys')
 const encryptData = require('./api/encryptData')
 const decryptData = require('./api/decryptData')
+const refreshKeys = require('./api/refreshKeys')
+
 
 require('dotenv').config();
 
@@ -31,6 +33,7 @@ app.use('/api/generatekeys', generateKeys);
 app.use('/api/decryptkeys', decryptKeys);
 app.use('/api/encryptdata', encryptData);
 app.use('/api/decryptdata', decryptData);
+app.use('/api/refreshkeys', refreshKeys)
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);

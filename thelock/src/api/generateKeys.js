@@ -1,7 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
 const sss = require("shamirs-secret-sharing");
-const { randomBytes } = require("crypto");
 
 const PARTS = 4;
 const QUORUM = 2;
