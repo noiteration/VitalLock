@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li class="sidebar-title">
-                    <a href="#">
+                    <a href="{{route('mto.index')}}">
                         <span>MTO Vision Test Zero Knowledge Proof</span>
                     </a>
                 </li>

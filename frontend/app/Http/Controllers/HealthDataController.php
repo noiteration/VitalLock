@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreHealthDataRequest;
 use App\Http\Requests\UpdateHealthDataRequest;
 use App\Models\HealthData;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Facades\Auth;
@@ -121,7 +119,6 @@ class HealthDataController extends Controller
 
             return $decryptedData;
         }
-
 
         function constructPrivateKey($userId, $userKey)
         {
