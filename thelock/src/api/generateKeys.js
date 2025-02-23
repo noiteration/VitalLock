@@ -14,7 +14,7 @@ async function generateKeyPair() {
 		crypto.generateKeyPair(
 			"rsa",
 			{
-				modulusLength: 512,
+				modulusLength: 2048,
 				publicKeyEncoding: {
 					type: "spki",
 					format: "pem",

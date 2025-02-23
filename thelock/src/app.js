@@ -5,6 +5,8 @@ const cors = require('cors');
 
 const generateKeys = require('./api/generateKeys')
 const decryptKeys = require('./api/decryptKeys')
+const encryptData = require('./api/encryptData')
+const decryptData = require('./api/decryptData')
 
 require('dotenv').config();
 
@@ -27,6 +29,8 @@ app.get('/', (req, res) => {
 app.use('/api/v1', api);
 app.use('/api/generatekeys', generateKeys);
 app.use('/api/decryptkeys', decryptKeys);
+app.use('/api/encryptdata', encryptData);
+app.use('/api/decryptdata', decryptData);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
