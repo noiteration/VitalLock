@@ -92,7 +92,7 @@ class HealthDataController extends Controller
                     $response = Http::withHeaders([
                         'Content-Type' => 'application/json',
                     ])->post($apiUrl . $decryption_endpoint, [
-                                'privateKey' => $privateKey,
+                                'privateKey' => (string)$privateKey,
                                 'encryptedData' => $item["data"]
                             ]);
                     if ($response->successful()) {
