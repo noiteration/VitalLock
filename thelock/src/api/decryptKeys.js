@@ -1,6 +1,5 @@
 const express = require('express');
-const crypto = require('crypto');
-const { join } = require('shamir');
+const sss = require('shamirs-secret-sharing')
 
 const router = express.Router();
 
@@ -9,30 +8,12 @@ router.post('/', (req, res) => {
 
   try {
     // Decode the parts
-    const decodedPart1 = Buffer.from(part1, 'base64');
-    const decodedPart2 = Buffer.from(part2, 'base64');
+    const partial1 = part1;
+    const partial2 = part2;
+    const recovered_secret = sss.combine([partial1, partial2])
+console.log(recovered_secret.toString())
 
-    // Reconstruct the secret
-    const reconstructedSecret = join({
-      1: decodedPart1,
-      2: decodedPart2
-    });
-
-    // Decrypt the private key
-    const privateKey = crypto.createPrivateKey({
-      key: reconstructedSecret,
-      format: 'der',
-      type: 'pkcs8'
-    });
-
-    // Convert the private key to PEM format
-    const decodedPrivateKey = privateKey.export({
-      type: 'pkcs8',
-      format: 'pem'
-    });
-
-    // Send the decoded private key as the response
-    res.json({ decodedPrivateKey });
+    res.json({ message: recovered_secret.toString() });
   } catch (error) {
     console.error('Error decrypting private key:', error);
     res.status(400).json({ error: 'Failed to decrypt private key' });

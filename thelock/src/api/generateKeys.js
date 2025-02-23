@@ -1,6 +1,6 @@
 const express = require("express");
 const crypto = require("crypto");
-const { split, join } = require("shamir");
+const sss = require("shamirs-secret-sharing");
 const { randomBytes } = require("crypto");
 
 const PARTS = 4;
@@ -37,30 +37,23 @@ async function generateKeyPair() {
 
 router.post("/", async (req, res) => {
 	try {
-		// moot security measure
-		const { secret } = req.body;
-		if (!secret) {
-			return res.status(400).json({ error: "Maybe send a payload too." });
-		}
-
 		// encryption using ml-kem768
 		const { publicKey, privateKey } = await generateKeyPair();
-		const utf8Encoder = new TextEncoder();
-		const secretBytes = utf8Encoder.encode(privateKey);
-		const parts = split(randomBytes, PARTS, QUORUM, secretBytes);
-		console.log(parts);
+		const secretBuffer = Buffer.from(privateKey);
+		const parts = sss.split(secretBuffer, { shares: PARTS, threshold: QUORUM });
 
-		const regularArray = Array.from(parts[2]);
-		const jsonString = JSON.stringify(regularArray);
-		const retrievedArray = JSON.parse(jsonString);
-		const uint8Array = new Uint8Array(retrievedArray);
-		const partsToJoin = {
-			1: parts[2],
-			4: parts[4],
-		};
+		const idKey = parts[0].toString("hex");
+		const secretKey = parts[1].toString("hex");
+		const healthCareKey = parts[2].toString("hex");
+		const emergencyContactKey = parts[3].toString("hex");
 
-		console.log(partsToJoin);
-		res.json({ partsToJoin });
+		res.json({
+			publicKey: publicKey,
+			idKey: idKey,
+			secretKey: secretKey,
+			healthCareKey: healthCareKey,
+			emergencyContactKey: emergencyContactKey,
+		});
 	} catch (error) {
 		console.error("Error generating key pair:", error);
 		res.status(500).json({ error: "Internal server error" });
