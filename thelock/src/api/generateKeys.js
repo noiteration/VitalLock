@@ -7,8 +7,12 @@ const QUORUM = 2;
 
 const router = express.Router();
 
-// Function to generate a public-private key pair
+// Function to generate a public-private key pair quantum proof
 async function generateKeyPair() {
+	// const theKeys = ml_kem768.keygen();
+	// const publicKey = theKeys.publicKey;
+	// const privateKey = theKeys.secretKey;
+	// resolve({ publicKey, privateKey });
 	return new Promise((resolve, reject) => {
 		crypto.generateKeyPair(
 			"rsa",
