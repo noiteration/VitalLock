@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('v_l_keys', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->unsignedBigInteger('user_id');
+            $table->text('public_key');
+            $table->text('health_care_key');
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
