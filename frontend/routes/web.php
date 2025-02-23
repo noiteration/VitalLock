@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HealthDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VLKeyController;
 use Illuminate\Support\Facades\Route;
@@ -18,6 +19,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/generate-keys', [VLKeyController::class, 'generateKeys'])->name('vlkey.generateKeys');
+
+    Route::get('/healthdata/create', [HealthDataController::class, 'create'])->name('healthdata.create');
+    Route::post('/healthdata/store', [HealthDataController::class, 'store'])->name('healthdata.store');
+    Route::get('/healthdata/show', [HealthDataController::class, 'show'])->name('healthdata.show');
 });
 
 require __DIR__.'/auth.php';

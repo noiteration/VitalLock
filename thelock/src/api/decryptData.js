@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
     const { encryptedData, privateKey } = req.body;
+    console.log(privateKey)
 
     if (!encryptedData || !privateKey) {
         return res.status(400).json({ error: "Missing encryptedData or privateKey" });
